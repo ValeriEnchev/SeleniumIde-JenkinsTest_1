@@ -11,7 +11,7 @@ pipeline {
             steps {
 				bat '''
 					echo Downloading dotNet 6 SDK installer
-					curl -L -o dotnet-sdk-6.0.136-win-x86.exe https://builds.dotnet.microsoft.com/dotnet/Sdk/6.0.136/dotnet-sdk-6.0.136-win-x86.exe
+					curl -o dotnet-sdk-6.0.136-win-x86.exe https://builds.dotnet.microsoft.com/dotnet/Sdk/6.0.136/dotnet-sdk-6.0.136-win-x86.exe
 					echo Installing dotnet-sdk-6.0.136-win-x86.exe
 					dotnet-sdk-6.0.136-win-x86.exe /quiet /norestart
 				'''
