@@ -7,7 +7,7 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/ValeriEnchev/SeleniumIde-JenkinsTest_1.git'
             }
         } 
-		stage('Checkout code') {
+        stage('Checkout code') {
             steps {
 				bat '''
 					echo Downloading dotNet 6 SDK
@@ -32,15 +32,14 @@ pipeline {
                 bat 'dotnet test SeleniumIde.sln --logger "trx;LogFileName=TestResult.trx"'
             }
 		}
-
-        post {
-            always {
-                arhiveArtifacts artifacts: '**/TestResults/*.trx', allowEmptyArhive: true
-                step([
-                    $class: 'MSTestPublisher',
-                    testResultsFile: '**/TestResults/*.trx'
-                ])
-            }
+    }
+    post {
+        always {
+            arhiveArtifacts artifacts: '**/TestResults/*.trx', allowEmptyArhive: true
+            step([
+                $class: 'MSTestPublisher',
+                testResultsFile: '**/TestResults/*.trx'
+            ])
         }
     }
 }
