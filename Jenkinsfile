@@ -10,14 +10,14 @@ pipeline {
         stage('Set up dotNet Core') {
             steps {
 				bat '''
-					echo Downloading dotNet 6 SDK
-					curl -s -o dotnet-sdk-6.0.136-win-x86.exe https://builds.dotnet.microsoft.com/dotnet/Sdk/6.0.136/dotnet-sdk-6.0.136-win-x86.exe
+					echo Downloading dotNet 6 SDK installer
+					curl -L -o dotnet-sdk-6.0.136-win-x86.exe https://builds.dotnet.microsoft.com/dotnet/Sdk/6.0.136/dotnet-sdk-6.0.136-win-x86.exe
 					echo Installing dotnet-sdk-6.0.136-win-x86.exe
 					dotnet-sdk-6.0.136-win-x86.exe /quiet /norestart
 				'''
             }
         } 
-		stage('Restore nuget packets') {
+		stage('Restore dependencies') {
             steps {
                 bat 'dotnet restore SeleniumIde.sln'
             }
@@ -35,7 +35,7 @@ pipeline {
     }
     post {
         always {
-            arhiveArtifacts artifacts: '**/TestResults/*.trx', allowEmptyArhive: true
+            archiveArtifacts artifacts: '**/TestResults/*.trx', allowEmptyArhive: true
             step([
                 $class: 'MSTestPublisher',
                 testResultsFile: '**/TestResults/*.trx'
