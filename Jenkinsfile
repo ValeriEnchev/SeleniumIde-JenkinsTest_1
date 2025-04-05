@@ -7,7 +7,7 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/ValeriEnchev/SeleniumIde-JenkinsTest_1.git'
             }
         } 
-        stage('Checkout code') {
+        stage('Set up dotNet Core') {
             steps {
 				bat '''
 					echo Downloading dotNet 6 SDK
